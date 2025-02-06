@@ -1,9 +1,13 @@
+import { useMemo } from "react";
 import CpuIcon from "../../icons/cpu";
 import seperateThink from "../../lib/seperateThink";
 import MarkDownRender from "../markdown";
 
 export default function AiMessage(props: { text: string }) {
-  const { answer, think } = seperateThink(props.text);
+  const { answer, think } = useMemo(
+    () => seperateThink(props.text),
+    [props.text]
+  );
 
   return (
     <div className="rounded-4xl text-xl py-4 px-6 mr-auto flex flex-row gap-3">
