@@ -10,7 +10,11 @@ export interface MessageType {
 
 interface ChatType {
   messages: MessageType[];
+  resolved: boolean;
   addMessage: (text: string, sender: MessageType["role"]) => void;
+  setResolved: (newValue: boolean) => void;
+  loading: boolean;
+  setLoading: (newValue: boolean) => void;
 }
 
 export const useChatStore = create<ChatType>()(
@@ -18,6 +22,10 @@ export const useChatStore = create<ChatType>()(
     persist(
       (set) => ({
         messages: [],
+        setResolved: (newValue: boolean) => {
+          set({ resolved: newValue });
+        },
+        resolved: true,
         addMessage: (
           content: string,
           role: MessageType["role"],
@@ -26,6 +34,10 @@ export const useChatStore = create<ChatType>()(
           set((state) => ({
             messages: [...state.messages, { content, role, error }],
           }));
+        },
+        loading: false,
+        setLoading: (newValue: boolean) => {
+          set({ loading: newValue });
         },
       }),
       {

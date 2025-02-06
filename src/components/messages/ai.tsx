@@ -3,10 +3,10 @@ import CpuIcon from "../../icons/cpu";
 import seperateThink from "../../lib/seperateThink";
 import MarkDownRender from "../markdown";
 
-export default function AiMessage(props: { text: string }) {
+export default function AiMessage(props: { content: string }) {
   const { answer, think } = useMemo(
-    () => seperateThink(props.text),
-    [props.text]
+    () => seperateThink(props.content),
+    [props.content]
   );
 
   return (

@@ -1,43 +1,38 @@
 import { useState } from "react";
 import SendIcon from "./icons/send";
-import generate from "./lib/generate";
+// import generate from "./lib/generate";
 import { useChatStore } from "./lib/chatStore";
 import MeMessage from "./components/messages/me";
+import AiMessageToResolve from "./components/messages/ai-to-resolve";
 import AiMessage from "./components/messages/ai";
 
 function App() {
   const [prompt, setPrompt] = useState("");
-  const { messages, addMessage } = useChatStore();
+  const { messages, addMessage, resolved, setResolved, setLoading } = useChatStore();
 
   return (
     <div className="h-screen w-full bg-slate-800 overflow-y-scroll pb-28">
       <div className="text-white w-full max-w-5xl mx-auto flex flex-col gap-2 p-5">
         {messages.map((message) => {
           if (message.role == "user") {
-            return <MeMessage text={message.content} />;
+            return <MeMessage content={message.content} />;
           }
-          if (!message.error) return <AiMessage text={message.content} />;
+          if (!message.error) return <AiMessage content={message.content} />;
           return (
             <div>
               {message.role}, {message.content}
             </div>
           );
         })}
+        {!resolved && <AiMessageToResolve />}
       </div>
       <form
         className="p-2 fixed bottom-3 left-3 w-full flex"
         onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
           e.preventDefault();
           addMessage(prompt, "user");
-          console.log(messages);
-
-          generate([
-            ...messages,
-            { content: prompt, role: "user", error: false },
-          ]).then((answer) => {
-            addMessage(answer, "assistant");
-            setPrompt("");
-          });
+          setLoading(true);
+          setResolved(false);
         }}
       >
         <div className="p-3 rounded-full text-white bg-slate-700 w-full max-w-5xl m-auto text-xl flex flex-row gap-1">
