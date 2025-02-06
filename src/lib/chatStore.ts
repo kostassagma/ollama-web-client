@@ -2,15 +2,15 @@ import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 import type {} from "@redux-devtools/extension"; // required for devtools typing
 
-interface MessageType {
-  text: string;
+export interface MessageType {
+  content: string;
   error: boolean;
-  sender: "me" | "ai";
+  role: "user" | "system" | "assistant";
 }
 
 interface ChatType {
   messages: MessageType[];
-  addMessage: (text: string, sender: "me" | "ai") => void;
+  addMessage: (text: string, sender: MessageType["role"]) => void;
 }
 
 export const useChatStore = create<ChatType>()(
@@ -19,12 +19,12 @@ export const useChatStore = create<ChatType>()(
       (set) => ({
         messages: [],
         addMessage: (
-          text: string,
-          sender: "me" | "ai",
+          content: string,
+          role: MessageType["role"],
           error: boolean = false
         ) => {
           set((state) => ({
-            messages: [...state.messages, { text, sender, error }],
+            messages: [...state.messages, { content, role, error }],
           }));
         },
       }),

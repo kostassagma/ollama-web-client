@@ -13,13 +13,13 @@ function App() {
     <div className="h-screen w-full bg-slate-800 overflow-y-scroll pb-28">
       <div className="text-white w-full max-w-5xl mx-auto flex flex-col gap-2 p-5">
         {messages.map((message) => {
-          if (message.sender == "me") {
-            return <MeMessage text={message.text} />;
+          if (message.role == "user") {
+            return <MeMessage text={message.content} />;
           }
-          if (!message.error) return <AiMessage text={message.text} />;
+          if (!message.error) return <AiMessage text={message.content} />;
           return (
             <div>
-              {message.sender}, {message.text}
+              {message.role}, {message.content}
             </div>
           );
         })}
@@ -28,9 +28,14 @@ function App() {
         className="p-2 fixed bottom-3 left-3 w-full flex"
         onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
           e.preventDefault();
-          addMessage(prompt, "me");
-          generate(prompt).then((answer) => {
-            addMessage(answer, "ai");
+          addMessage(prompt, "user");
+          console.log(messages);
+
+          generate([
+            ...messages,
+            { content: prompt, role: "user", error: false },
+          ]).then((answer) => {
+            addMessage(answer, "assistant");
             setPrompt("");
           });
         }}
