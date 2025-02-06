@@ -14,6 +14,7 @@ export default function MarkDownRender(props: {
       remarkPlugins={[remarkGfm, remarkMath]}
       rehypePlugins={[rehypeKatex]}
       components={{
+        //@ts-expect-error idk why lolll
         code({ node, inline, className, children, ...props }) {
           const match = /language-(\w+)/.exec(className || "");
           return !inline && match ? (
