@@ -8,7 +8,7 @@ export default function TextInput() {
 
   return (
     <form
-      className="p-2 fixed bottom-3 left-3 w-full flex"
+      className="p-2 sticky bottom-3 left-3 w-full right-0 flex"
       onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         addMessage(prompt, "user");

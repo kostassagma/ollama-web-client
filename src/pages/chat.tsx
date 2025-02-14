@@ -14,7 +14,7 @@ function ChatPage() {
         <h1 className="font-bold text-3xl">Ollama Web Client</h1>
         <div className="flex-1">Hello</div>
       </div>
-      <div className="h-screen w-full bg-slate-800 overflow-y-scroll pb-28">
+      <div className="h-screen w-full bg-slate-800 overflow-y-scroll relative ">
         <div className="text-white w-full max-w-5xl mx-auto flex flex-col gap-2 p-5">
           {messages.map((message) => {
             if (message.role == "user") {
