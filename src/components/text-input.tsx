@@ -12,6 +12,7 @@ export default function TextInput() {
       onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         addMessage(prompt, "user");
+        setPrompt("");
         setLoading(true);
         setResolved(false);
       }}
