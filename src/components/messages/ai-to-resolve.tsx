@@ -24,7 +24,7 @@ export default function AiMessageToResolve() {
       });
       for await (const part of response) {
         if (!isMounted) return;
-        console.log(part.message.content);
+        // console.log(part.message.content);
         if (part.message.content == "<think>") {
           thinking = true;
         } else if (part.message.content == "</think>") {
