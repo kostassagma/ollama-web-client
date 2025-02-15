@@ -57,6 +57,10 @@ export const useChatStore = create<AllChatsType>()(
           set({ loading: newValue });
         },
         setSelected: (id: string) => {
+          if (id === "") {
+            set({ selectedId: "" });
+            return;
+          }
           set((state) => {
             const chatHistory = state.allChats.find((chat) => chat.id === id);
             if (chatHistory) {
