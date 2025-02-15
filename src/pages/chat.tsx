@@ -1,12 +1,20 @@
+import { useParams } from "react-router-dom";
 import AiMessage from "../components/messages/ai";
 import AiMessageToResolve from "../components/messages/ai-to-resolve";
 import MeMessage from "../components/messages/me";
 import SideNav from "../components/sidenav";
 import TextInput from "../components/text-input";
 import { useChatStore } from "../lib/chatStore";
+import { useEffect } from "react";
 
 function ChatPage() {
-  const { messages, resolved } = useChatStore();
+  const { messages, resolved, setSelected } = useChatStore();
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    if (id) setSelected(id);
+  }, [id]);
 
   return (
     <div className="h-screen w-full overflow-hidden flex flex-row">

@@ -3,6 +3,7 @@ import LandingPage from "./pages";
 import ChatPage from "./pages/chat";
 
 function App() {
+
   return (
     <BrowserRouter>
       <Routes>
