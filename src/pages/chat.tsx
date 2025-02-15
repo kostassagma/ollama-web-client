@@ -13,7 +13,7 @@ function ChatPage() {
       <div className="h-screen">
         <SideNav />
       </div>
-      <div className="h-screen w-full bg-slate-800 overflow-y-scroll relative ">
+      <div className="h-screen w-full bg-slate-800 overflow-y-scroll relative flex flex-col">
         <div className="text-white w-full max-w-5xl mx-auto flex flex-col gap-2 p-5">
           {messages.map((message) => {
             if (message.role == "user") {
