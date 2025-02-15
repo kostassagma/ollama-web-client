@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import ChatIcon from "../../icons/chat";
 import OllamaIcon from "../../icons/ollama";
 import { useChatStore } from "../../lib/chatStore";
@@ -15,9 +16,12 @@ export default function SideNav() {
         <h1 className=" text-3xl my-auto">Ollama</h1>
       </div>
       <div className="px-5">
-        <button className="bg-blue-500 rounded-md p-2 text-white font-semibold text-lg flex flex-row gap-2 cursor-pointer">
+        <Link
+          to="/"
+          className="bg-blue-500 rounded-md p-2 text-white font-semibold text-lg flex flex-row gap-2 cursor-pointer"
+        >
           <ChatIcon width={20} className="my-auto" /> New Chat
-        </button>
+        </Link>
       </div>
       <div className="flex-1 flex flex-col gap-1 overflow-y-scroll px-5">
         <p className="text-gray-400">Previous Chats</p>
