@@ -67,15 +67,15 @@ export const useChatStore = create<AllChatsType>()(
               return {
                 selectedId: id,
                 messages: chatHistory.messages,
-                resolved: true,
-                loading: false,
+                resolved: state.resolved,
+                loading: state.loading,
               };
             } else {
               return {
                 selectedId: id,
                 messages: [],
-                resolved: true,
-                loading: false,
+                resolved: state.resolved,
+                loading: state.loading,
                 allChats: [
                   ...state.allChats,
                   { id: id, messages: [], title: "New Chat" },
