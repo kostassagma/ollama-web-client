@@ -18,7 +18,7 @@ interface CurrentChatType {
 }
 
 interface AllChatsType extends CurrentChatType {
-  allChats: { messages: MessageType[]; id: string }[];
+  allChats: { messages: MessageType[]; id: string; title: string }[];
   selectedId: string;
   setSelected: (id: string) => void;
 }
@@ -43,7 +43,11 @@ export const useChatStore = create<AllChatsType>()(
             messages: [...state.messages, { content, role, error }],
             allChats: state.allChats.map((e) =>
               e.id === state.selectedId
-                ? { id: e.id, messages: [...e.messages, { content, role, error }] }
+                ? {
+                    id: e.id,
+                    title: e.title && e.title != "New Chat" ? e.title : content,
+                    messages: [...e.messages, { content, role, error }],
+                  }
                 : e
             ),
           }));
@@ -68,7 +72,10 @@ export const useChatStore = create<AllChatsType>()(
                 messages: [],
                 resolved: true,
                 loading: false,
-                allChats: [...state.allChats, { id: id, messages: [] }],
+                allChats: [
+                  ...state.allChats,
+                  { id: id, messages: [], title: "New Chat" },
+                ],
               };
             }
           });
