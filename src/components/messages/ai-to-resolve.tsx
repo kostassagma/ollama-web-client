@@ -6,7 +6,9 @@ import MarkDownRender from "../markdown";
 import { useEffect, useState } from "react";
 import ollama from "ollama/browser";
 
-export default function AiMessageToResolve() {
+export default function AiMessageToResolve(props: {
+  scrollToBottomFallback: () => void;
+}) {
   const [think, setThink] = useState("");
   const [answer, setAnswer] = useState("");
   const { messages, addMessage, setResolved } = useChatStore();
@@ -36,7 +38,7 @@ export default function AiMessageToResolve() {
         }
 
         fullAnswer += part.message.content;
-        // addMessage(part.message.content, "assistant");
+        props.scrollToBottomFallback();
       }
       addMessage(fullAnswer, "assistant");
       setResolved(true);
