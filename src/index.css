@@ -1,1 +1,12 @@
 @import "tailwindcss";
+
+::-webkit-scrollbar {
+  width: 8px; /* width of the entire scrollbar */
+}
+::-webkit-scrollbar-track {
+  background: transparent; /* color of the tracking area */
+}
+::-webkit-scrollbar-thumb {
+  background-color: #62748e; /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
+}

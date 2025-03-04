@@ -21,6 +21,7 @@ interface AllChatsType extends CurrentChatType {
   allChats: { messages: MessageType[]; id: string; title: string }[];
   selectedId: string;
   setSelected: (id: string) => void;
+  deleteChat: (id: string) => void;
 }
 
 export const useChatStore = create<AllChatsType>()(
@@ -84,6 +85,7 @@ export const useChatStore = create<AllChatsType>()(
             }
           });
         },
+        deleteChat: (_id: string) => {},
       }),
       {
         name: "chat-store",
