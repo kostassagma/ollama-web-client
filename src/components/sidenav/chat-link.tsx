@@ -1,11 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ThreeDotsIcon from "../../icons/three-dots";
 import { useState } from "react";
 import { useChatStore } from "../../lib/chatStore";
 
 export default function ChatLink(props: { id: string; title: string }) {
   const [openMenu, setOpenMenu] = useState(false);
-  const { selectedId } = useChatStore();
+  const { selectedId, deleteChat } = useChatStore();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -41,7 +42,14 @@ export default function ChatLink(props: { id: string; title: string }) {
             <button className="p-2 w-full hover:bg-slate-900 rounded-lg cursor-pointer">
               Rename
             </button>
-            <button className="p-2 w-full hover:bg-slate-900 rounded-lg cursor-pointer">
+            <button
+              className="p-2 w-full hover:bg-slate-900 rounded-lg cursor-pointer"
+              onClick={(e) => {
+                e.preventDefault();
+                deleteChat(props.id);
+                if (props.id == selectedId) return navigate(`/`);
+              }}
+            >
               Delete
             </button>
           </div>

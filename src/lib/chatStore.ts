@@ -85,7 +85,11 @@ export const useChatStore = create<AllChatsType>()(
             }
           });
         },
-        deleteChat: (_id: string) => {},
+        deleteChat: (id: string) => {
+          set((state) => ({
+            allChats: state.allChats.filter((chat) => chat.id != id),
+          }));
+        },
       }),
       {
         name: "chat-store",
